@@ -27,7 +27,8 @@ class Command(BaseCommand):
             'election_date': date(2016, 10, 8),
             'current': True,
             'candidate_membership_role': 'Candidate',
-            'area_generation': '7'
+            'area_generation': '7',
+            'party_lists_in_use': False
         }
         
         areaclassification = {
@@ -86,7 +87,7 @@ class Command(BaseCommand):
                 name = electiondata['election_name'],
                 current = defaults['current'],
                 organization = organization,
-                party_lists_in_use = False,
+                party_lists_in_use = defaults['party_lists_in_use'],
                 area_generation = defaults['area_generation']
             )
             area_type, _ = AreaType.objects.update_or_create(
