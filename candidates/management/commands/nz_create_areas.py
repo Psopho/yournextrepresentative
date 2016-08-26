@@ -18,45 +18,6 @@ from elections.models import Election, AreaType
 
 class Command(BaseCommand):
 
-
-    # def add_arguments(self, parser):
-    #     parser.add_argument(
-    #         'MAPIT-URL',
-    #         help='The base URL of the MapIt instance, e.g. ' \
-    #             'http://global.mapit.mysociety.org/'
-    #     )
-    #     parser.add_argument(
-    #         'AREA-TYPE',
-    #         help='The code of the MapIt area type, e.g. WMC'
-    #     )
-    #     parser.add_argument(
-    #         'POST-ID-FORMAT',
-    #         help='The format of the corresponding Post ID, e.g. cons-{area_id}'
-    #     )
-    #     parser.add_argument(
-    #         '--area-ids',
-    #         help='Manually specify the MapIt area IDs to create posts for, as a comma-separated list',
-    #         metavar='AREA-IDS',
-    #     )
-    #     parser.add_argument(
-    #         '--post-label',
-    #         help='Override the format string used to construct the post label [default: "%(default)s"]',
-    #         metavar='POST-LABEL',
-    #         default=_('{post_role} for {area_name}'),
-    #     )
-    #     parser.add_argument(
-    #         '--party-set',
-    #         help='Use a particular party set for all the posts [default: "%(default)s"]',
-    #         metavar='PARTY-SET-NAME',
-    #         default='National',
-    #     )
-    #     parser.add_argument(
-    #         '--enclosing-area-id',
-    #         help='Only find areas covered by the area with this ID',
-    #         metavar='AREA-ID',
-    #         type=int
-    #     )
-
   def handle(self, *args, **options):
     
     areas = [
