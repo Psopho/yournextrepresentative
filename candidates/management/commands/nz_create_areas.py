@@ -108,12 +108,10 @@ class Command(BaseCommand):
     
     for thearea in areas:
       
-      # area 
-      area_url = 'http://global.mapit.mysociety.org/area/' + thearea[0]
-    
+      # area
       area, area_created = Area.objects.get_or_create(
         name=thearea[3],
-        identifier=area_url,
+        identifier=thearea[0],
         classification=areaclassification[thearea[2]]
       )
       
@@ -129,6 +127,3 @@ class Command(BaseCommand):
           base=area,
           type=area_type
         )
-      # if area_created and area_extra_created:
-      #   area_extra.type = area_type
-      #   area_extra.save()
