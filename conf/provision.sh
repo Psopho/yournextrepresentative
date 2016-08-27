@@ -11,13 +11,13 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
    libyaml-dev >/dev/null
 
 
-grep -qG 'cd $HOME/yournextmp' "$HOME/.bashrc" ||
+grep -qG 'cd $HOME' "$HOME/.bashrc" ||
    cat <<'EOF' >> "$HOME/.bashrc"
 
-source ~/yournextmp/venv/bin/activate
-cd ~/yournextmp
+source ~/venv/bin/activate
+cd ~/
 EOF
 source "$HOME/.bashrc"
 
-cd ~/yournextmp
+cd ~/
 yournextrepresentative/bin/pre-deploy
