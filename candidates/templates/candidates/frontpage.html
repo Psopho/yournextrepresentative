@@ -31,9 +31,9 @@
 
 {% block hero %}
 
-  <h1>{% trans "Find candidates to be your next representative" %}</h1>
+  <h1>{% trans "Who are you choosing to represent <i>you</i>?" %}</h1>
 
-  <p class="lead">{% trans "Don’t pay for a candidate database sold by a data vendor — it’s a waste of money." %}</p>
+  <p class="lead">{% trans "Find out about candidates for the 2016 local government elections, and who best represents your community and its needs." %}</p>
 
 {% endblock %}
 
@@ -56,7 +56,7 @@
 <div class="finder__description">
   <div class="container">
     {% block description %}
-    <p>{% trans "This is a crowd-sourced database of election candidates." %}
+    <p>{% trans "Note: all the details on this site have been crowdsourced." %}
     </p>
     {% url 'help-api' as api_url %}
     {% url "tasks_home" as tasks_url %}
