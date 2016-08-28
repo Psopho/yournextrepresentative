@@ -303,7 +303,7 @@ def get_settings(conf_file_leafname, election_app=None, tests=False):
 
         # Settings for staticfiles and Django pipeline:
         'STATIC_URL': '/static/',
-        'STATIC_ROOT': join(BASE_DIR, 'static'),
+        'STATIC_ROOT': conf.get('STATIC_ROOT') or join(BASE_DIR, 'static'),
         'STATICI18N_ROOT': join(BASE_DIR, 'mysite', 'static'),
         'STATICFILES_DIRS': (
             join(BASE_DIR, 'mysite', 'static'),
