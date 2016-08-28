@@ -10,7 +10,7 @@
 <h2>{% blocktrans with site_name=site.name %}You can help us make {{ site_name }} better!{% endblocktrans %}</h2>
 
 <p>{% blocktrans trimmed with site_name=site.name %}
-{{ site_name }} is a volunteer-sourced database, and that means we constantly
+{{ site_name }} is a volunteer-sourced database, and that means we 
 need help in making it better.
 {% endblocktrans %}</p>
 
@@ -19,22 +19,16 @@ There is a lot of useful information on candidates out there, so if you find
 any please do add it to our site.
 {% endblocktrans %}</p>
 
-<h3>{% trans "Emails" %}</h3>
+<h3>{% trans "How to help" %}</h3>
 
 <p>{% blocktrans trimmed %}
-At the moment we're trying to get as many email addresses on candidates as
-we can.
+Our initial focus is on building an index of all candidates and their details.
+This includes their contact details, websites, and social media accounts.
 {% endblocktrans %}</p>
-
-<p>{% blocktrans trimmed %}
-This will allow us to email them directly to ask them to add their own
-details.
-{% endblocktrans %}</p>
-
-<h4>{% trans "How to help" %}</h4>
 
 {% url "account_login" as url %}
 <p>{% blocktrans trimmed %}
+We would love your help. 
 First off you'll need to <a href="{{ url }}">log in</a> in
 order to start making edits.
 {% endblocktrans %}</p>
