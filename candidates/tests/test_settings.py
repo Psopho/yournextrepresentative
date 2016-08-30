@@ -9,7 +9,6 @@ from usersettings.shortcuts import get_current_usersettings
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 
-from ..models import EDIT_SETTINGS_GROUP_NAME
 from ..models import LoggedAction
 
 from .auth import TestUserMixin
@@ -17,19 +16,6 @@ from .settings import SettingsMixin
 
 
 class SettingsTests(TestUserMixin, SettingsMixin, WebTest):
-
-    def setUp(self):
-        super(SettingsTests, self).setUp()
-        self.test_setter = User.objects.create_superuser(
-            'jane',
-            'jane@example.com',
-            'alsonotagoodpassword',
-        )
-        self.test_setter.terms_agreement.assigned_to_dc = True
-        self.test_setter.terms_agreement.save()
-        self.test_setter.groups.add(
-            Group.objects.get(name=EDIT_SETTINGS_GROUP_NAME)
-        )
 
     def test_settings_view_unprivileged(self):
         settings_url = reverse(
@@ -46,14 +32,14 @@ class SettingsTests(TestUserMixin, SettingsMixin, WebTest):
         settings_url = reverse(
             'settings',
         )
-        response = self.app.get(settings_url, user=self.test_setter)
+        response = self.app.get(settings_url, user=self.user_who_can_edit_settings)
         self.assertEqual(response.status_code, 200)
 
     def test_settings_loaded(self):
         settings_url = reverse(
             'settings',
         )
-        response = self.app.get(settings_url, user=self.test_setter)
+        response = self.app.get(settings_url, user=self.user_who_can_edit_settings)
         form = response.forms['settings']
 
         # just check a sample
@@ -64,7 +50,7 @@ class SettingsTests(TestUserMixin, SettingsMixin, WebTest):
         settings_url = reverse(
             'settings',
         )
-        response = self.app.get(settings_url, user=self.test_setter)
+        response = self.app.get(settings_url, user=self.user_who_can_edit_settings)
         form = response.forms['settings']
 
         form['SITE_OWNER'].value = 'The New Owners'
@@ -75,11 +61,28 @@ class SettingsTests(TestUserMixin, SettingsMixin, WebTest):
         settings = get_current_usersettings()
         self.assertEqual(settings.SITE_OWNER, 'The New Owners')
 
+    def test_settings_validation_fails(self):
+        settings_url = reverse(
+            'settings',
+        )
+        response = self.app.get(settings_url, user=self.user_who_can_edit_settings)
+        form = response.forms['settings']
+
+        # SITE_OWNER is a required setting, so try setting it to the
+        # empty string to check we get a validation error:
+        form['SITE_OWNER'].value = ''
+        response = form.submit()
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertIn('Oops!', response)
+        self.assertIn('This field is required.', response)
+
     def test_logged_action_created(self):
         settings_url = reverse(
             'settings',
         )
-        response = self.app.get(settings_url, user=self.test_setter)
+        response = self.app.get(settings_url, user=self.user_who_can_edit_settings)
         form = response.forms['settings']
 
         form['SITE_OWNER'].value = 'The New Owners'
